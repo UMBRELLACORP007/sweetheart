@@ -72,7 +72,6 @@
       white-space: pre-line;
     }
 
-    /* container for gifts under the paragraph */
     .gifts-wrapper {
       margin-top: 16px;
       display: flex;
@@ -82,29 +81,25 @@
 
     .reveal { animation: reveal 1.5s ease forwards; }
 
-    /* Hearts */
     .heart { position: absolute; width: 18px; height: 18px; background: linear-gradient(45deg,#ff6b81,#ff9cb1); transform: rotate(45deg); animation: float 6s linear infinite; opacity: 0.7; cursor: pointer; transition: transform 0.2s ease; }
     .heart::before, .heart::after { content: ''; position: absolute; width: 18px; height: 18px; background: linear-gradient(45deg,#ff6b81,#ff9cb1); border-radius: 50%; }
     .heart::before { top: -9px; left: 0; }
     .heart::after { left: -9px; top: 0; }
     .heart:hover { transform: scale(1.5) rotate(0deg); }
 
-    /* Balloons */
     .balloon { position: absolute; width: 42px; height: 55px; border-radius: 50% 50% 45% 45%; animation: balloonFloat 10s linear infinite; opacity: 0.95; cursor: pointer; transition: transform 0.2s ease; }
     .balloon::after { content: ''; position: absolute; width: 2px; height: 40px; background: rgba(0,0,0,0.35); left: 50%; top: 100%; transform: translateX(-50%); }
     .balloon:hover { transform: scale(1.2); }
 
-    /* Confetti */
     .confetti { position: absolute; width: 8px; height: 8px; opacity: 0.9; transform: rotate(45deg); }
 
-    /* Sweet notes */
     .note { position: absolute; font-size: 1.2rem; font-weight: bold; color: #ff1493; text-shadow: 1px 1px 3px #fff; opacity: 0.95; pointer-events: none; animation: noteFloat 2.5s forwards; z-index: 9999; transform: scale(1); }
 
-    /* Gifts: now pink heart icon */
+    /* Gifts: pink heart icon with cache-busting so mobile reloads it */
     .gift {
       width: 32px;
       height: 32px;
-      background: url('https://uxwing.com/wp-content/themes/uxwing/download/relationship-love/pink-heart-icon.png')
+      background: url('https://uxwing.com/wp-content/themes/uxwing/download/relationship-love/pink-heart-icon.png?v=2')
         no-repeat center/contain;
       cursor: pointer;
       opacity: 1;
@@ -129,7 +124,6 @@ Somehow our conversations make even ordinary moments feel special.
 I’ve learned how much your presence matters to me, quietly but deeply.
 And I don’t ever want to lose you again.</p>
 
-    <!-- gifts appear here, under paragraph -->
     <div id="giftsWrapper" class="gifts-wrapper"></div>
   </div>
 
