@@ -72,7 +72,7 @@
       white-space: pre-line;
     }
 
-    /* NEW: container for gifts under the paragraph */
+    /* container for gifts under the paragraph */
     .gifts-wrapper {
       margin-top: 16px;
       display: flex;
@@ -100,11 +100,12 @@
     /* Sweet notes */
     .note { position: absolute; font-size: 1.2rem; font-weight: bold; color: #ff1493; text-shadow: 1px 1px 3px #fff; opacity: 0.95; pointer-events: none; animation: noteFloat 2.5s forwards; z-index: 9999; transform: scale(1); }
 
-    /* Gifts: now relative inside gifts-wrapper, not absolute on page */
+    /* Gifts: now pink heart icon */
     .gift {
       width: 32px;
       height: 32px;
-      background: url('https://cdn-icons-png.flaticon.com/512/888/888879.png') no-repeat center/contain;
+      background: url('https://uxwing.com/wp-content/themes/uxwing/download/relationship-love/pink-heart-icon.png')
+        no-repeat center/contain;
       cursor: pointer;
       opacity: 1;
     }
@@ -128,7 +129,7 @@ Somehow our conversations make even ordinary moments feel special.
 I’ve learned how much your presence matters to me, quietly but deeply.
 And I don’t ever want to lose you again.</p>
 
-    <!-- NEW: gifts appear here, under paragraph -->
+    <!-- gifts appear here, under paragraph -->
     <div id="giftsWrapper" class="gifts-wrapper"></div>
   </div>
 
@@ -212,7 +213,6 @@ And I don’t ever want to lose you again.</p>
       setTimeout(()=> note.remove(), 2500);
     }
 
-    /* UPDATED: create gifts under the paragraph, inside giftsWrapper */
     function createGifts(){
       for(let i=0;i<3;i++){
         const gift=document.createElement('div');
