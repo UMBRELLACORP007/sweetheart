@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday 💗</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      height: 100svh;
+      background: linear-gradient(135deg, #ffd1dc, #c1e1ff);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      font-family: 'Pacifico', cursive;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.25);
+      border-radius: 22px;
+      padding: 32px 22px;
+      text-align: center;
+      box-shadow: 0 18px 35px rgba(0,0,0,0.12);
+      z-index: 2;
+      max-width: 92vw;
+    }
+    }
+
+    h1 {
+      font-size: 2.4rem;
+      color: #ff5e78;
+      cursor: pointer;
+      line-height: 1.2;
+    }
+
+    p {
+      margin-top: 14px;
+      font-size: 1.1rem;
+      color: #444;
+      transition: opacity 1s ease;
+      line-height: 1.5;
+    }
+
+    #message { opacity: 0; }
+
+    #prequote {
+      font-size: 1.2rem;
+      opacity: 0.85;
+    }
+
+    #moreBtn {
+      margin-top: 18px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 999px;
+      background: #ff8fa3;
+      color: white;
+      font-family: 'Pacifico', cursive;
+      font-size: 1rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 1s ease, transform 0.25s ease;
+    }
+
+    #moreBtn:hover {
+      transform: scale(1.05);
+    }
+
+    #moreText {
+      margin-top: 18px;
+      font-size: 1.2rem;
+      color: #444;
+      opacity: 0;
+      transition: opacity 1.5s ease;
+      line-height: 1.6;
+    }
+
+    .reveal {
+      animation: reveal 1.5s ease forwards;
+    }
+
+    /* Hearts */
+    .heart {
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #ff6b81;
+      transform: rotate(45deg);
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      background: #ff6b81;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -9px; left: 0; }
+    .heart::after { left: -9px; top: 0; }
+
+    /* Balloons */
+    .balloon {
+      position: absolute;
+      width: 42px;
+      height: 55px;
+      background: radial-gradient(circle at 30% 30%, #fff, #ff9a9e);
+      border-radius: 50% 50% 45% 45%;
+      animation: balloonFloat 10s linear infinite;
+      opacity: 0.95;
+    }
+
+    .balloon::after {
+      content: '';
+      position: absolute;
+      width: 2px;
+      height: 40px;
+      background: rgba(0,0,0,0.35);
+      left: 50%;
+      top: 100%;
+      transform: translateX(-50%);
+    }
+
+    @keyframes reveal {
+      0% { opacity: 0; transform: scale(0.7); }
+      60% { opacity: 1; transform: scale(1.15); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+
+    @keyframes balloonFloat {
+      from { transform: translateY(110vh); }
+      to { transform: translateY(-120vh); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <h1 id="title">Tap for a surprise 💖</h1>
+    <p id="prequote">You have this quiet way of making everything feel lighter, kinder, and a little more beautiful 🌸</p>
+    <p id="message">May your days be soft, bright, and full of smiles ✨</p>
+    <button id="moreBtn">More 🌸</button>
+    <p id="moreText">I love talking to you — it’s always easy, comforting, and real.<br>Somehow our conversations make even ordinary moments feel special.<br>I’ve learned how much your presence matters to me, quietly but deeply.<br>And I don’t ever want to lose you again.</p>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/download/audio/2022/10/26/audio_946b6a6f0d.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const title = document.getElementById('title');
+    const message = document.getElementById('message');
+    const moreBtn = document.getElementById('moreBtn');
+    const moreText = document.getElementById('moreText');
+    let revealed = false;
+
+    title.addEventListener('click', () => {
+      if (revealed) return;
+      revealed = true;
+      title.textContent = 'Happy Birthday Shravani 💗';
+      title.classList.add('reveal');
+      message.style.opacity = '1';
+      moreBtn.style.opacity = '1';
+      document.getElementById('bgMusic').play();
+    });
+
+    moreBtn.addEventListener('click', () => {
+      moreText.style.opacity = '1';
+    });
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.animationDuration = 8 + Math.random() * 6 + 's';
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 12000);
+    }
+
+    setInterval(createHeart, 300);
+    setInterval(createBalloon, 900);
+  </script>
+
+</body>
+</html>
