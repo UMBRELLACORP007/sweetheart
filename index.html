@@ -48,6 +48,14 @@
     #prequote { font-size: 1.2rem; opacity: 0.85; }
     #message { opacity: 0; position: relative; }
 
+    #noteHint {
+      margin-top: 12px;
+      font-size: 1rem;
+      color: #ff1493;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+
     #moreBtn {
       margin-top: 18px;
       padding: 10px 20px;
@@ -77,6 +85,8 @@
       display: flex;
       justify-content: center;
       gap: 12px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
     }
 
     .reveal { animation: reveal 1.5s ease forwards; }
@@ -95,14 +105,11 @@
 
     .note { position: absolute; font-size: 1.2rem; font-weight: bold; color: #ff1493; text-shadow: 1px 1px 3px #fff; opacity: 0.95; pointer-events: none; animation: noteFloat 2.5s forwards; z-index: 9999; transform: scale(1); }
 
-    /* Gifts: pink heart icon with cache-busting so mobile reloads it */
     .gift {
       width: 32px;
       height: 32px;
-      background: url('https://uxwing.com/wp-content/themes/uxwing/download/relationship-love/pink-heart-icon.png?v=2')
-        no-repeat center/contain;
+      background: url('https://uxwing.com/wp-content/themes/uxwing/download/relationship-love/pink-heart-icon.png?v=2') no-repeat center/contain;
       cursor: pointer;
-      opacity: 1;
     }
 
     @keyframes reveal { 0% { opacity: 0; transform: scale(0.7); } 60% { opacity: 1; transform: scale(1.15); } 100% { transform: scale(1); } }
@@ -118,6 +125,7 @@
     <h1 id="title">Tap for a surprise 💖</h1>
     <p id="prequote">You have this quiet way of making everything feel lighter, kinder, and a little more beautiful 🌸</p>
     <p id="message">May your days be soft, bright, and full of smiles ✨</p>
+    <p id="noteHint">💖 Tap the floating hearts for sweet little messages!</p>
     <button id="moreBtn">More 🌸</button>
     <p id="moreText">I love talking to you — it’s always easy, comforting, and real.
 Somehow our conversations make even ordinary moments feel special.
@@ -133,6 +141,7 @@ And I don’t ever want to lose you again.</p>
     const moreBtn = document.getElementById('moreBtn');
     const moreText = document.getElementById('moreText');
     const giftsWrapper = document.getElementById('giftsWrapper');
+    const noteHint = document.getElementById('noteHint');
     let revealed = false;
 
     const sweetNotes = [
@@ -140,7 +149,7 @@ And I don’t ever want to lose you again.</p>
     ];
 
     const giftMessages = [
-      'You’re amazing, remember that 🌸', 'You make me smile 🌸', 'You’re the best part of my day 💖', 'Can’t stop thinking about you ✨', 'You’re simply amazing 💕', 'You’re my favorite 🌸', 'I love our talks 💖', 'Can’t wait to see you 😘', 'My day is brighter because of you ☀️'
+      'You’re amazing, remember that 🌸','You make me smile 🌸','You’re the best part of my day 💖','Can’t stop thinking about you ✨','You’re simply amazing 💕','You’re my favorite 🌸','I love our talks 💖','Can’t wait to see you 😘','My day is brighter because of you ☀️','You light up my world 🌟','You make every moment special 💝','You’re a treasure in my life 💎','Your smile is contagious 😄','Thinking of you always 💌','You’re my sunshine on cloudy days ☀️','I cherish every moment with you 💕','You’re sweeter than honey 🍯','I adore your kindness 💖','You inspire me every day ✨','Being with you feels like magic 🌸'
     ];
 
     let giftsCreated = false;
@@ -155,57 +164,16 @@ And I don’t ever want to lose you again.</p>
     });
 
     moreBtn.addEventListener('click', () => {
+      moreBtn.style.display='none';
       typeText(moreText, 30, () => {
+        noteHint.style.opacity='1';
         if(!giftsCreated){
           createGifts();
+          giftsWrapper.style.opacity='1';
           giftsCreated = true;
         }
       });
     });
-
-    function createHeart() {
-      const heart = document.createElement('div');
-      heart.className = 'heart';
-      heart.style.left = Math.random() * 100 + 'vw';
-      heart.style.background = `hsl(${Math.random()*360},70%,70%)`;
-      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
-      heart.addEventListener('click', () => { createConfetti(5); showNote(); });
-      document.body.appendChild(heart);
-      setTimeout(() => heart.remove(), 6000);
-    }
-
-    function createBalloon() {
-      const balloon = document.createElement('div');
-      balloon.className = 'balloon';
-      balloon.style.left = Math.random() * 100 + 'vw';
-      balloon.style.background = `hsl(${Math.random()*360},70%,80%)`;
-      balloon.style.animationDuration = 8 + Math.random() * 6 + 's';
-      balloon.addEventListener('click', () => { createConfetti(5); showNote(); });
-      document.body.appendChild(balloon);
-      setTimeout(() => balloon.remove(), 12000);
-    }
-
-    function createConfetti(count) {
-      for(let i=0;i<count;i++){
-        const confetti=document.createElement('div');
-        confetti.className='confetti';
-        confetti.style.left=Math.random()*100+'vw';
-        confetti.style.backgroundColor=`hsl(${Math.random()*360},70%,80%)`;
-        confetti.style.animation=`confettiFall ${2+Math.random()*3}s linear forwards`;
-        document.body.appendChild(confetti);
-        setTimeout(()=>confetti.remove(),5000);
-      }
-    }
-
-    function showNote() {
-      const note = document.createElement('div');
-      note.className = 'note';
-      note.textContent = sweetNotes[Math.floor(Math.random()*sweetNotes.length)];
-      note.style.left = Math.random()*80 + 'vw';
-      note.style.top = 50 + Math.random()*40 + 'vh';
-      document.body.appendChild(note);
-      setTimeout(()=> note.remove(), 2500);
-    }
 
     function createGifts(){
       for(let i=0;i<3;i++){
@@ -239,6 +207,38 @@ And I don’t ever want to lose you again.</p>
         } else { if(callback) callback(); }
       }
       typing();
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.className = 'heart';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.background = `hsl(${Math.random()*360},70%,70%)`;
+      heart.style.animationDuration = 4 + Math.random() * 4 + 's';
+      heart.addEventListener('click', () => { showNote(); });
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }
+
+    function createBalloon() {
+      const balloon = document.createElement('div');
+      balloon.className = 'balloon';
+      balloon.style.left = Math.random() * 100 + 'vw';
+      balloon.style.background = `hsl(${Math.random()*360},70%,80%)`;
+      balloon.style.animationDuration = 8 + Math.random() * 6 + 's';
+      balloon.addEventListener('click', () => { showNote(); });
+      document.body.appendChild(balloon);
+      setTimeout(() => balloon.remove(), 12000);
+    }
+
+    function showNote() {
+      const note = document.createElement('div');
+      note.className = 'note';
+      note.textContent = sweetNotes[Math.floor(Math.random()*sweetNotes.length)];
+      note.style.left = Math.random()*80 + 'vw';
+      note.style.top = 50 + Math.random()*40 + 'vh';
+      document.body.appendChild(note);
+      setTimeout(()=> note.remove(), 2500);
     }
 
     setInterval(createHeart,300);
